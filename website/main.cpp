@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 #include <iostream>
 
-int g_screenHeight = 640;
-int g_screenWidth = 480;
+int g_screenHeight = 500;
+int g_screenWidth = 500;
 SDL_Window* g_GraphicsWindow = nullptr;
 SDL_GLContext g_OpenGLContext = nullptr;
 
