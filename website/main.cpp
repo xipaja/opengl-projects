@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <math.h>
+#include "shader.h"
 
 int g_screenHeight = 500;
 int g_screenWidth = 500;
@@ -9,25 +10,6 @@ SDL_Window* g_GraphicsWindow = nullptr;
 SDL_GLContext g_OpenGLContext = nullptr;
 
 bool g_Quit = false;
-
-const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "layout (location = 1) in vec3 aColor;\n"
-    "out vec3 ourColor;\n" // output color to frag shader
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos, 1.0);\n"
-    "   ourColor = aColor;\n"
-    "}\0";
-
-const char *fragmentShaderSource = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "in vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    // "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
-    "   FragColor = vec4(ourColor, 1.0);"
-    "}\n";
 
 void init() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -87,34 +69,14 @@ void pollEvents() {
 int main() {
     init();
 
-    // Compile vertex shader
-    unsigned int vertexShader;
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    // Compile fragment shader
-    unsigned int fragmentShader;
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    // Link shaders
-    unsigned int shaderProgram;
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    Shader customShader("shaders/vertex.vs", "shaders/fragment.fs");
 
     // Set up vertex data and buffers, configure vertex attributes
     float vertices[] = {
         // positions        // colors
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom right
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom left
-        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f // top
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
     // Store vertex data, managed by VBO
@@ -146,15 +108,8 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        customShader.use();
 
-        // Update uniform color
-        // float timeValue = float(SDL_GetTicks() / 500.f);
-        // float green = (sin(timeValue) / 1.5f);
-        // int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-        // glUniform4f(vertexColorLocation, 0.0f, green, 0.0f, 1.0f);
-
-        glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -165,7 +120,6 @@ int main() {
     // Deallocate resources
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
 
     return 0;
 }
