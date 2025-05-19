@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 #include "shader.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 int g_screenHeight = 500;
 int g_screenWidth = 500;
@@ -73,45 +75,87 @@ int main() {
 
     // Set up vertex data and buffers, configure vertex attributes
     float vertices[] = {
-        // positions        // colors
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+        // positions        // colors          // texture coords
+        0.5f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f,     1.0f, 1.0f,
+        0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,    1.0f, 0.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+        -0.5f, 0.5f, 0.0f,  1.0f, 1.0f, 0.0f,    0.0f, 1.0f
+    };
+
+    unsigned int indices[] {
+        0, 1, 3, // first triangle
+        1, 2, 3 // second triangle
+    };
+
+    float texCoords[] = {
+        0.0f, 0.0f, // lower left corner
+        1.0f, 0.0f, // lower right corner
+        0.5f, 1.0f // top center
     };
 
     // Store vertex data, managed by VBO
-    unsigned int VBO, VAO;
+    unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
     // Bind VAO first, then bind and set VBOs, then configure attributes
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Tell OpenGL how to interpret the vertex data per vertex attribute
     
     // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // Color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // Texture attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
-    glBindVertexArray(0);
+    // Texture
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // Texture - set texture wrapping and filtering options
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // For minified textures
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // For magnified textures
+
+    // Texture - load
+    int width, height, numChannels;
+    unsigned char* texImageData = stbi_load("container.jpg", &width, &height, &numChannels, 0);
+
+    // Texture - generate
+    if(texImageData) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texImageData);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    } else {
+        std::cout << "ERROR::TEXTURE::Failed to load texture" << std::endl;
+    }
+
+    // Texture - Free image memory
+    stbi_image_free(texImageData);
 
     // Render loop
     while(!g_Quit) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glBindTexture(GL_TEXTURE_2D, texture);
+
         customShader.use();
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         SDL_GL_SwapWindow(g_GraphicsWindow);
         pollEvents();
