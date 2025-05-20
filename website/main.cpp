@@ -5,6 +5,9 @@
 #include "shader.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 int g_screenHeight = 500;
 int g_screenWidth = 500;
@@ -151,6 +154,16 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         glBindTexture(GL_TEXTURE_2D, texture);
+
+        glm::mat4 transform = glm::mat4(1.0f); // Identity matrix
+        // transform = glm::rotate(transform, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0)); // Rotate by 90 deg around Z-axis
+        // transform = glm::scale(transform, glm::vec3(0.5, 0.5, 0.5)); // Scale
+        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+        transform = glm::rotate(transform, (SDL_GetTicks() / 1000.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // Send transform to shader
+        unsigned int transformLocation = glGetUniformLocation(customShader.id, "transform");
+        glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
 
         customShader.use();
 
