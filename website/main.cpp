@@ -165,6 +165,24 @@ int main() {
         unsigned int transformLocation = glGetUniformLocation(customShader.id, "transform");
         glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transform));
 
+        // Model matrix - rotate on x-axis
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0, 0.0f, 0.0f));
+        int modelLocation = glGetUniformLocation(customShader.id, "model");
+        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+
+        // View matrix - moving camera backwards = moving scene forward in -z direction
+        glm::mat4 view = glm::mat4(1.0f);
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        int viewLocation = glGetUniformLocation(customShader.id, "view");
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+        // Projection matrix
+        glm::mat4 projection;
+        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        int projLocation = glGetUniformLocation(customShader.id, "projection");
+        glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
         customShader.use();
 
         glBindVertexArray(VAO);
