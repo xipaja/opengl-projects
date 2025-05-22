@@ -200,9 +200,23 @@ int main() {
         // int modelLocation = glGetUniformLocation(customShader.id, "model");
         // glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 
+        glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+        glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+        glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+        glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+        glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
         // View matrix - moving camera backwards = moving scene forward in -z direction
+        const float radius = 5.0f;
+        float camX = sin((SDL_GetTicks() / 1000.0f))  * radius;
+        float camZ = cos((SDL_GetTicks() / 1000.0f))  * radius;
         glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), // pos
+                            glm::vec3(0.0f, 0.0f, 0.0f), // target
+                            glm::vec3(0.0f, 1.0f, 0.0f) // up
+                            );
         int viewLocation = glGetUniformLocation(customShader.id, "view");
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
