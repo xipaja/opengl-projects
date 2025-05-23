@@ -14,6 +14,11 @@ int g_screenWidth = 500;
 SDL_Window* g_GraphicsWindow = nullptr;
 SDL_GLContext g_OpenGLContext = nullptr;
 
+// Camera variables
+glm::vec3 cameraPos =   glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp =    glm::vec3(0.0f, 1.0f, 0.0f);
+
 bool g_Quit = false;
 
 void init() {
@@ -52,13 +57,27 @@ void init() {
     glViewport(0, 0, g_screenHeight, g_screenWidth);
 }
 
-// TODO: figure out resizing with SDL
-// void framebuffer_size_callback(SDL_Window* window, int width, int height) {
-//     glViewport(0, 0, width, height);
-// }
+void processInputs() {
+    // process input with SDL
+    const bool* state = SDL_GetKeyboardState(nullptr);
+    const float cameraSpeed = 0.05f;
 
-void processInputs(SDL_Window* window) {
-    // process input with SDl
+    if (state[SDL_SCANCODE_W]) {
+        // Move forward
+        cameraPos += cameraSpeed * cameraFront;
+    }
+    else if (state[SDL_SCANCODE_A]) {
+        // Move left
+        cameraPos -= cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
+    }
+    else if (state[SDL_SCANCODE_S]) {
+        // Move back
+        cameraPos -= cameraSpeed * cameraFront;
+    }
+    else if (state[SDL_SCANCODE_D]) {
+        // Move right
+        cameraPos += cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
+    }
 }
 
 void pollEvents() {
@@ -187,6 +206,8 @@ int main() {
 
     // Render loop
     while(!g_Quit) {
+        processInputs();
+
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
 
@@ -194,13 +215,6 @@ int main() {
 
         customShader.use();
 
-        // Model matrix - rotate on x-axis
-        // glm::mat4 model = glm::mat4(1.0f);
-        // model = glm::rotate(model, (SDL_GetTicks() / 1000.0f) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-        // int modelLocation = glGetUniformLocation(customShader.id, "model");
-        // glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-
-        glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
         glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
         glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
         glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -213,10 +227,7 @@ int main() {
         float camZ = cos((SDL_GetTicks() / 1000.0f))  * radius;
         glm::mat4 view = glm::mat4(1.0f);
         // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), // pos
-                            glm::vec3(0.0f, 0.0f, 0.0f), // target
-                            glm::vec3(0.0f, 1.0f, 0.0f) // up
-                            );
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         int viewLocation = glGetUniformLocation(customShader.id, "view");
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
