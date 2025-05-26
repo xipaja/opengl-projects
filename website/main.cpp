@@ -26,6 +26,7 @@ float yaw = -90.0f;
 float pitch = 0.0f;
 float lastX = g_screenWidth / 2.0;
 float lastY = g_screenHeight / 2.0;
+float fov = 45.0f;
 
 bool g_Quit = false;
 
@@ -45,19 +46,19 @@ void init() {
                                     g_screenWidth,
                                     g_screenHeight,
                                     SDL_WINDOW_OPENGL);
-    if(g_GraphicsWindow == nullptr) {
+    if (g_GraphicsWindow == nullptr) {
         std::cout << "SDL window was unable to be created" << std::endl;
         exit(1);
     }
 
     g_OpenGLContext = SDL_GL_CreateContext(g_GraphicsWindow);
-    if(g_OpenGLContext == nullptr) {
+    if (g_OpenGLContext == nullptr) {
         std::cout << "OpenGL Context not available." << std::endl;
         exit(1);
     }
     
     // Init the Glad Library
-    if(!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
+    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
         std::cout << "Could not init glad library" << std::endl;
         exit(1);
     }
@@ -102,10 +103,10 @@ void processMouse(float xPos, float yPos) {
     pitch += yOffset;
 
     // Avoid weird pitch camera angles
-    if(pitch > 89.0f) {
+    if (pitch > 89.0f) {
         pitch = 89.0f;
     }
-    if(pitch < -89.0f) {
+    if (pitch < -89.0f) {
         pitch = -89.0f;
     }
 
@@ -116,15 +117,32 @@ void processMouse(float xPos, float yPos) {
     cameraFront = glm::normalize(direction);
 }
 
+void processScroll(float scrollValue) {
+    if (scrollValue > 0) {
+        fov -= 5.0f;
+        if (fov < 1.0f) {
+            fov = 1.0f;
+        }
+    } else {
+        fov += 5.0f;
+        if (fov > 90.0f) {
+            fov = 90.0f;
+        }
+    }
+}
+
 void pollEvents() {
     SDL_Event e;
-    while(SDL_PollEvent(&e) != 0) {
-        if(e.type == SDL_EVENT_QUIT) {
+    while (SDL_PollEvent(&e) != 0) {
+        if (e.type == SDL_EVENT_QUIT) {
             std::cout << "Goodbye!" << std::endl;
             g_Quit = true;
         }
-        else if (e.type == SDL_EVENT_MOUSE_MOTION) {
+        if (e.type == SDL_EVENT_MOUSE_MOTION) {
             processMouse(e.motion.x, e.motion.y);
+        }
+        if (e.type == SDL_EVENT_MOUSE_WHEEL) {
+            processScroll(e.motion.x);
         }
     }
 }
@@ -233,7 +251,7 @@ int main() {
     unsigned char* texImageData = stbi_load("container.jpg", &width, &height, &numChannels, 0);
 
     // Texture - generate
-    if(texImageData) {
+    if (texImageData) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texImageData);
         glGenerateMipmap(GL_TEXTURE_2D);
     } else {
@@ -244,7 +262,7 @@ int main() {
     stbi_image_free(texImageData);
 
     // Render loop
-    while(!g_Quit) {
+    while (!g_Quit) {
         float currentFrameTime = SDL_GetTicks();
         deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
@@ -269,14 +287,12 @@ int main() {
         float camX = sin((SDL_GetTicks() / 1000.0f))  * radius;
         float camZ = cos((SDL_GetTicks() / 1000.0f))  * radius;
         glm::mat4 view = glm::mat4(1.0f);
-        // view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         int viewLocation = glGetUniformLocation(customShader.id, "view");
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
         // Projection matrix
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), (float)g_screenWidth / (float)g_screenHeight, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(fov), (float)g_screenWidth / (float)g_screenHeight, 0.1f, 100.0f);
         int projLocation = glGetUniformLocation(customShader.id, "projection");
         glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
