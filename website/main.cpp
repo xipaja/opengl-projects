@@ -19,6 +19,14 @@ glm::vec3 cameraPos =   glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp =    glm::vec3(0.0f, 1.0f, 0.0f);
 
+float deltaTime = 0.0f; // Time between curr frame and last frame
+float lastFrameTime = 0.0f; // Time of last frame
+
+float yaw = -90.0f;
+float pitch = 0.0f;
+float lastX = g_screenWidth / 2.0;
+float lastY = g_screenHeight / 2.0;
+
 bool g_Quit = false;
 
 void init() {
@@ -60,7 +68,7 @@ void init() {
 void processInputs() {
     // process input with SDL
     const bool* state = SDL_GetKeyboardState(nullptr);
-    const float cameraSpeed = 0.05f;
+    const float cameraSpeed = 0.005f * deltaTime;
 
     if (state[SDL_SCANCODE_W]) {
         // Move forward
@@ -80,12 +88,43 @@ void processInputs() {
     }
 }
 
+void processMouse(float xPos, float yPos) {
+    float xOffset = xPos - lastX;
+    float yOffset = lastY - yPos; // reversed for bottom -> top y coordinates
+    lastX = xPos;
+    lastY = yPos;
+
+    const float sensitivity = 0.1f;
+    xOffset *= sensitivity;
+    yOffset *= sensitivity;
+
+    yaw += xOffset;
+    pitch += yOffset;
+
+    // Avoid weird pitch camera angles
+    if(pitch > 89.0f) {
+        pitch = 89.0f;
+    }
+    if(pitch < -89.0f) {
+        pitch = -89.0f;
+    }
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));
+    cameraFront = glm::normalize(direction);
+}
+
 void pollEvents() {
     SDL_Event e;
     while(SDL_PollEvent(&e) != 0) {
         if(e.type == SDL_EVENT_QUIT) {
             std::cout << "Goodbye!" << std::endl;
             g_Quit = true;
+        }
+        else if (e.type == SDL_EVENT_MOUSE_MOTION) {
+            processMouse(e.motion.x, e.motion.y);
         }
     }
 }
@@ -206,6 +245,10 @@ int main() {
 
     // Render loop
     while(!g_Quit) {
+        float currentFrameTime = SDL_GetTicks();
+        deltaTime = currentFrameTime - lastFrameTime;
+        lastFrameTime = currentFrameTime;
+
         processInputs();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
