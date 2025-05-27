@@ -22,6 +22,7 @@ class Shader {
         void setFloat(const std::string &name, float value) const;
 };
 
+// Constructor
 Shader::Shader(const char* vertexFilePath, const char* fragmentFilePath) {
     // Retrieve vertex/fragment source code from file path
     std::string vertexCode;

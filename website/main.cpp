@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <camera.h>
 
 int g_screenHeight = 500;
 int g_screenWidth = 500;
@@ -15,22 +16,17 @@ SDL_Window* g_GraphicsWindow = nullptr;
 SDL_GLContext g_OpenGLContext = nullptr;
 
 // Camera variables
-glm::vec3 cameraPos =   glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp =    glm::vec3(0.0f, 1.0f, 0.0f);
+Camera camera;
+float lastX = g_screenWidth / 2.0f;
+float lastY = g_screenHeight / 2.0f;
+bool firstMouse = true;
 
 float deltaTime = 0.0f; // Time between curr frame and last frame
 float lastFrameTime = 0.0f; // Time of last frame
 
-float yaw = -90.0f;
-float pitch = 0.0f;
-float lastX = g_screenWidth / 2.0;
-float lastY = g_screenHeight / 2.0;
-float fov = 45.0f;
-
 bool g_Quit = false;
 
-void init() {
+void initWindow() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cout << "SDL3 could not initialize video subsystem" << std::endl;
         exit(1);
@@ -66,69 +62,20 @@ void init() {
     glViewport(0, 0, g_screenHeight, g_screenWidth);
 }
 
-void processInputs() {
-    // process input with SDL
-    const bool* state = SDL_GetKeyboardState(nullptr);
-    const float cameraSpeed = 0.005f * deltaTime;
-
-    if (state[SDL_SCANCODE_W]) {
-        // Move forward
-        cameraPos += cameraSpeed * cameraFront;
-    }
-    else if (state[SDL_SCANCODE_A]) {
-        // Move left
-        cameraPos -= cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
-    }
-    else if (state[SDL_SCANCODE_S]) {
-        // Move back
-        cameraPos -= cameraSpeed * cameraFront;
-    }
-    else if (state[SDL_SCANCODE_D]) {
-        // Move right
-        cameraPos += cameraSpeed * glm::normalize(glm::cross(cameraFront, cameraUp));
-    }
-}
-
 void processMouse(float xPos, float yPos) {
+    // Avoid window capturing the entering mouse pos as the initial camera pos
+    if (firstMouse) {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+
     float xOffset = xPos - lastX;
     float yOffset = lastY - yPos; // reversed for bottom -> top y coordinates
     lastX = xPos;
     lastY = yPos;
 
-    const float sensitivity = 0.1f;
-    xOffset *= sensitivity;
-    yOffset *= sensitivity;
-
-    yaw += xOffset;
-    pitch += yOffset;
-
-    // Avoid weird pitch camera angles
-    if (pitch > 89.0f) {
-        pitch = 89.0f;
-    }
-    if (pitch < -89.0f) {
-        pitch = -89.0f;
-    }
-
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw) * cos(glm::radians(pitch)));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));
-    cameraFront = glm::normalize(direction);
-}
-
-void processScroll(float scrollValue) {
-    if (scrollValue > 0) {
-        fov -= 5.0f;
-        if (fov < 1.0f) {
-            fov = 1.0f;
-        }
-    } else {
-        fov += 5.0f;
-        if (fov > 90.0f) {
-            fov = 90.0f;
-        }
-    }
+    camera.processMouseMovement(xOffset, yOffset);
 }
 
 void pollEvents() {
@@ -142,13 +89,13 @@ void pollEvents() {
             processMouse(e.motion.x, e.motion.y);
         }
         if (e.type == SDL_EVENT_MOUSE_WHEEL) {
-            processScroll(e.motion.x);
+            camera.processMouseScroll(e.motion.x);
         }
     }
 }
 
 int main() {
-    init();
+    initWindow();
 
     glEnable(GL_DEPTH_TEST);
     
@@ -267,7 +214,7 @@ int main() {
         deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
 
-        processInputs();
+        camera.processKeyboardInput(deltaTime);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
@@ -276,25 +223,15 @@ int main() {
 
         customShader.use();
 
-        glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
-        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-        glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
-        glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
-
-        // View matrix - moving camera backwards = moving scene forward in -z direction
-        const float radius = 5.0f;
-        float camX = sin((SDL_GetTicks() / 1000.0f))  * radius;
-        float camZ = cos((SDL_GetTicks() / 1000.0f))  * radius;
-        glm::mat4 view = glm::mat4(1.0f);
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        int viewLocation = glGetUniformLocation(customShader.id, "view");
-        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-
         // Projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(fov), (float)g_screenWidth / (float)g_screenHeight, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)g_screenWidth / (float)g_screenHeight, 0.1f, 100.0f);
         int projLocation = glGetUniformLocation(customShader.id, "projection");
         glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+        // Cam/view transform
+        glm::mat4 view = camera.getViewMatrix();
+        int viewLocation = glGetUniformLocation(customShader.id, "view");
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
         glBindVertexArray(VAO);
         for (unsigned int i = 0; i < 10; i++) {
