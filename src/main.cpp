@@ -9,6 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <camera.h>
+#include "window.h"
 
 int g_screenHeight = 500;
 int g_screenWidth = 500;
@@ -207,6 +208,8 @@ int main() {
 
     // Texture - Free image memory
     stbi_image_free(texImageData);
+    
+    Window win;
 
     // Render loop
     while (!g_Quit) {
