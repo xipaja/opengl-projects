@@ -109,6 +109,7 @@ void Geometry::_SetUpBuffers() {
     glGenBuffers(1, &_VBO);
     // Bind VAO, then bind and set VBO, then config attributes
     glBindVertexArray(_VAO);
+    
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(VERTICES), VERTICES, GL_STATIC_DRAW);
 }
@@ -140,6 +141,7 @@ void Geometry::_SetUpTexture() {
     // Generate texture
     if (_textureImageData) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _textureWidth, _textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, _textureImageData);
+        glGenerateMipmap(GL_TEXTURE_2D);
     } else {
         std::cout << "ERROR::TEXTURE::Failed to load texture" << std::endl;
     }
