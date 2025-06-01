@@ -32,13 +32,13 @@ class Camera {
         float Zoom;
 
         Camera();
-        glm::mat4 getViewMatrix();
-        void processKeyboardInput(float deltaTime);
-        void processMouseMovement(float xOffset, float yOffset);
-        void processMouseScroll(float scrollValue);
+        glm::mat4 GetViewMatrix();
+        void ProcessKeyboardInput(float deltaTime);
+        void ProcessMouseMovement(float xOffset, float yOffset);
+        void ProcessMouseScroll(float scrollValue);
 
     private:
-        void updateCameraVectors();
+        void _UpdateCameraVectors();
 };
 
 // Constructor
@@ -52,15 +52,15 @@ Pitch(PITCH),
 MovementSpeed(SPEED), 
 MouseSensitivity(SENSITIVITY), 
 Zoom(ZOOM) {
-    updateCameraVectors();
+    _UpdateCameraVectors();
 }
 
 // Get view matrix calculated using yaw/pitch Euler angles and lookAt matrix
-glm::mat4 Camera::getViewMatrix() {
+glm::mat4 Camera::GetViewMatrix() {
     return glm::lookAt(Position, Position + Front, Up);
 };
 
-void Camera::processKeyboardInput(float deltaTime) {
+void Camera::ProcessKeyboardInput(float deltaTime) {
     const bool* state = SDL_GetKeyboardState(nullptr);
     const float cameraVelocity = MovementSpeed * deltaTime;
 
@@ -82,7 +82,7 @@ void Camera::processKeyboardInput(float deltaTime) {
     }
 }
 
-void Camera::processMouseMovement(float xOffset, float yOffset) {
+void Camera::ProcessMouseMovement(float xOffset, float yOffset) {
     xOffset *= MouseSensitivity;
     yOffset *= MouseSensitivity;
 
@@ -97,10 +97,10 @@ void Camera::processMouseMovement(float xOffset, float yOffset) {
         Pitch = -89.0f;
     }
 
-    updateCameraVectors();
+    _UpdateCameraVectors();
 }
 
-void Camera::processMouseScroll(float scrollValue) {
+void Camera::ProcessMouseScroll(float scrollValue) {
     if (scrollValue > 0) {
         Zoom -= 5.0f;
         if (Zoom < 1.0f) {
@@ -114,7 +114,7 @@ void Camera::processMouseScroll(float scrollValue) {
     }
 }
 
-void Camera::updateCameraVectors() {
+void Camera::_UpdateCameraVectors() {
     // Calc new front vector from updated angles
     glm::vec3 newFront;
     newFront.x = cos(glm::radians(Yaw) * cos(glm::radians(Pitch)));

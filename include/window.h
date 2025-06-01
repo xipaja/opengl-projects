@@ -103,7 +103,7 @@ void Window::PollEvents() {
             ProcessMouse(e.motion.x, e.motion.y);
         }
         if (e.type == SDL_EVENT_MOUSE_WHEEL) {
-            _camera.processMouseScroll(e.motion.x);
+            _camera.ProcessMouseScroll(e.motion.x);
         }
     }
 }
@@ -123,7 +123,7 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _lastX = xPos;
     _lastY = yPos;
     
-    _camera.processMouseMovement(xOffset, yOffset);
+    _camera.ProcessMouseMovement(xOffset, yOffset);
 }
 
 void Window::Draw() {
@@ -137,13 +137,13 @@ void Window::Draw() {
         _deltaTime = currentFrameTime - _lastFrameTime;
         _lastFrameTime = currentFrameTime;
 
-        _camera.processKeyboardInput(_deltaTime);
+        _camera.ProcessKeyboardInput(_deltaTime);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         geometry.BindTexture();
-        geometry.GetShader().use();
+        geometry.GetShader().Use();
 
         // Projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(_camera.Zoom), (float)_windowWidth / (float)_windowHeight, 0.1f, 100.0f);
@@ -151,7 +151,7 @@ void Window::Draw() {
         glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
         // Cam/view transformation
-        glm::mat4 view = _camera.getViewMatrix();
+        glm::mat4 view = _camera.GetViewMatrix();
         int viewLocation = glGetUniformLocation(geometry.GetShader().id, "view");
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
         

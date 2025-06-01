@@ -15,11 +15,11 @@ class Shader {
         // Constructor reads and bulids shader
         Shader(const char* vertexFilePath, const char* fragmentFilePath);
         // Use/activate shader
-        void use();
+        void Use();
         // Utility uniform functions
-        void setBool(const std::string &name, bool value) const;
-        void setInt(const std::string &name, int value) const;
-        void setFloat(const std::string &name, float value) const;
+        void SetBool(const std::string &name, bool value) const;
+        void SetInt(const std::string &name, int value) const;
+        void SetFloat(const std::string &name, float value) const;
 };
 
 // Constructor
@@ -100,19 +100,19 @@ Shader::Shader(const char* vertexFilePath, const char* fragmentFilePath) {
     glDeleteShader(fragment);
 }
 
-void Shader::use() {
+void Shader::Use() {
     glUseProgram(id);
 }
 
-void Shader::setBool(const std::string &name, bool value) const {
+void Shader::SetBool(const std::string &name, bool value) const {
     glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const std::string &name, int value) const {
+void Shader::SetInt(const std::string &name, int value) const {
     glUniform1i(glGetUniformLocation(id, name.c_str()), value);
 }
 
-void Shader::setFloat(const std::string &name, float value) const {
+void Shader::SetFloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(id, name.c_str()), value);
 }
 
