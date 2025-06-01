@@ -12,7 +12,7 @@
 #include "camera.h"
 #include "geometry.h"
 
-const float DEFAULT_WIDTH = 600;
+const float DEFAULT_WIDTH = 500;
 const float DEFAULT_HEIGHT = 500;
 const float DEFAULT_LAST_X = DEFAULT_WIDTH / 2.0f;
 const float DEFAULT_LAST_Y = DEFAULT_HEIGHT / 2.0f;
@@ -120,6 +120,9 @@ void Window::ProcessMouse(float xPos, float yPos) {
     // Y is reversed for bottom to top Y coordinates
     float yOffset = _lastY - yPos;
 
+    _lastX = xPos;
+    _lastY = yPos;
+    
     _camera.processMouseMovement(xOffset, yOffset);
 }
 
