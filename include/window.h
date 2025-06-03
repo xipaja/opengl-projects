@@ -11,6 +11,7 @@
 #include "shader.h"
 #include "camera.h"
 #include "geometry.h"
+#include "cube.h"
 
 const float DEFAULT_WIDTH = 500;
 const float DEFAULT_HEIGHT = 500;
@@ -130,7 +131,7 @@ void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
 
-    Geometry geometry;
+    Cube cube;
 
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
@@ -142,31 +143,18 @@ void Window::Draw() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        geometry.BindTexture();
-        geometry.GetShader().Use();
+        cube.BindTexture();
+        cube.GetShader().Use();
 
         // Projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(_camera.Zoom), (float)_windowWidth / (float)_windowHeight, 0.1f, 100.0f);
-        int projLocation = glGetUniformLocation(geometry.GetShader().id, "projection");
-        glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
+        float aspectRatio = (float)_windowWidth / (float)_windowHeight;
+        cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
 
         // Cam/view transformation
-        glm::mat4 view = _camera.GetViewMatrix();
-        int viewLocation = glGetUniformLocation(geometry.GetShader().id, "view");
-        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+        cube.SetUpCamViewTransform(_camera.GetViewMatrix());
         
-        geometry.BindVertexArray();
-
-        for (unsigned int i = 0; i < 10; i++) {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, CUBE_POSITIONS[i]);
-            float angle = 20.0f * i;
-            model = glm::rotate(model, (SDL_GetTicks() / 1000.0f) * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-
-            int modelLocation = glGetUniformLocation(geometry.GetShader().id, "model");
-            glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        cube.BindVertexArray();
+        cube.SetUpTransformations();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();

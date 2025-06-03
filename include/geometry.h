@@ -5,72 +5,15 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <math.h>
-#include "shader.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <camera.h>
+#include "camera.h"
 #include "window.h"
-
-// 3D cube!
-float VERTICES[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-};
-
-glm::vec3 CUBE_POSITIONS[] = {
-    glm::vec3( 0.0f,  0.0f,  0.0f), 
-    glm::vec3( 2.0f,  5.0f, -15.0f), 
-    glm::vec3(-1.5f, -2.2f, -2.5f),  
-    glm::vec3(-3.8f, -2.0f, -12.3f),  
-    glm::vec3( 2.4f, -0.4f, -3.5f),  
-    glm::vec3(-1.7f,  3.0f, -7.5f),  
-    glm::vec3( 1.3f, -2.0f, -2.5f),  
-    glm::vec3( 1.5f,  2.0f, -2.5f), 
-    glm::vec3( 1.5f,  0.2f, -1.5f), 
-    glm::vec3(-1.3f,  1.0f, -1.5f)  
-};
+#include "vertices.h"
+#include "shader.h"
 
 class Geometry {
     public:
@@ -79,12 +22,17 @@ class Geometry {
         Shader& GetShader();
         void BindTexture();
         void BindVertexArray();
-        
+        virtual void SetUpProjectionMatrix(float zoom, float aspectRatio);
+        virtual void SetUpCamViewTransform(glm::mat4 viewMatrix);
+        virtual void SetUpTransformations();
+
         // void setCustomShader(const char* vertexFilePath, const char* fragmentFilePath);
         // void setVertices(float vertices[]);
 
-    private:
+    protected:
         Shader _customShader;
+    
+    private:
         unsigned int _VBO, _VAO;
         unsigned int _texture;
         int _textureWidth, _textureHeight, _textureNumChannels;
@@ -111,7 +59,7 @@ void Geometry::_SetUpBuffers() {
     glBindVertexArray(_VAO);
     
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VERTICES), VERTICES, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(CUBES_EXAMPLE_VERTICES), CUBES_EXAMPLE_VERTICES, GL_STATIC_DRAW);
 }
 
 void Geometry::_SetUpAttributes() {
@@ -145,6 +93,8 @@ void Geometry::_SetUpTexture() {
     } else {
         std::cout << "ERROR::TEXTURE::Failed to load texture" << std::endl;
     }
+
+    stbi_image_free(_textureImageData);
 }
 
 Shader& Geometry::GetShader() {
@@ -159,11 +109,16 @@ void Geometry::BindVertexArray() {
     glBindVertexArray(_VAO);
 }
 
+void Geometry::SetUpProjectionMatrix(float zoom, float aspectRatio) {}
+
+void Geometry::SetUpCamViewTransform(glm::mat4 viewMatrix) {}
+
+void Geometry::SetUpTransformations() {}
+
 Geometry::~Geometry() {
     // Deallocate resources
     glDeleteVertexArrays(1, &_VAO);
     glDeleteBuffers(1, &_VBO);
-    stbi_image_free(_textureImageData);
 }
 
 #endif
