@@ -1,13 +1,13 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include <geometry.h>
+#include "geometry.h"
 
 class Cube : public Geometry {
     public:
         Cube();
         void SetUpProjectionMatrix(float zoom, float aspectRatio) override;
-        void SetUpCamViewTransform(glm::mat4 viewMatrix);
+        void SetUpCamViewTransform(glm::mat4 viewMatrix) override;
         void SetUpTransformations() override;
 };
 

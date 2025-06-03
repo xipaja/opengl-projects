@@ -64,6 +64,9 @@ void Geometry::_SetUpBuffers() {
 
 void Geometry::_SetUpAttributes() {
     // Position
+
+    // TODO - pass in values for these params depending on the vertices/attributes
+    // i.e., shouldn't be hardcoded 5 * etc., will update with more geometries
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // Color
