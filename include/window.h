@@ -12,7 +12,6 @@
 #include "camera.h"
 #include "geometry.h"
 #include "cube.h"
-#include "rectangle.h"
 
 const float DEFAULT_WIDTH = 500;
 const float DEFAULT_HEIGHT = 500;
@@ -26,7 +25,6 @@ class Window {
         void PollEvents();
         void ProcessMouse(float xPos, float yPos);
         void Draw();
-        Camera& GetCamera();
 
     private:
         int _windowWidth;
@@ -127,10 +125,6 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _lastY = yPos;
     
     _camera.ProcessMouseMovement(xOffset, yOffset);
-}
-
-Camera& Window::GetCamera() {
-    return _camera;
 }
 
 void Window::Draw() {
