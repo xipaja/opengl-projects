@@ -22,35 +22,27 @@ class Geometry {
         Shader& GetShader();
         void BindTexture();
         void BindVertexArray();
-        virtual void SetUpProjectionMatrix(float zoom, float aspectRatio);
+        virtual void SetUpProjectionMatrix(float fov, float aspectRatio);
         virtual void SetUpCamViewTransform(glm::mat4 viewMatrix);
         virtual void SetUpTransformations();
-
-        // void setCustomShader(const char* vertexFilePath, const char* fragmentFilePath);
-        // void setVertices(float vertices[]);
+        virtual void Draw();
 
     protected:
+        unsigned int _VBO, _VAO;
         Shader _customShader;
+
+        void _SetUpBuffers();
+        virtual void _SetUpAttributes() = 0;
+        virtual void _SetUpTexture();
     
     private:
-        unsigned int _VBO, _VAO;
         unsigned int _texture;
         int _textureWidth, _textureHeight, _textureNumChannels;
         unsigned char* _textureImageData;
-
-        void _SetUpBuffers();
-        void _SetUpAttributes();
-        void _SetUpTexture();
-
 };
 
 Geometry::Geometry() :
-_customShader("shaders/vertex.vs", "shaders/fragment.fs")
-{
-    _SetUpBuffers();
-    _SetUpAttributes();
-    _SetUpTexture();
-}
+_customShader("shaders/cube/vertex.vs", "shaders/cube/fragment.fs") {}
 
 void Geometry::_SetUpBuffers() {
     glGenVertexArrays(1, &_VAO);
@@ -59,23 +51,10 @@ void Geometry::_SetUpBuffers() {
     glBindVertexArray(_VAO);
     
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CUBES_EXAMPLE_VERTICES), CUBES_EXAMPLE_VERTICES, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(CUBE_EXAMPLE_VERTICES), CUBE_EXAMPLE_VERTICES, GL_STATIC_DRAW);
 }
 
-void Geometry::_SetUpAttributes() {
-    // Position
-
-    // TODO - pass in values for these params depending on the vertices/attributes
-    // i.e., shouldn't be hardcoded 5 * etc., will update with more geometries
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // Color
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // Texture
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-}
+void Geometry::_SetUpAttributes() {}
 
 void Geometry::_SetUpTexture() {
     glGenTextures(1, &_texture);
@@ -112,11 +91,13 @@ void Geometry::BindVertexArray() {
     glBindVertexArray(_VAO);
 }
 
-void Geometry::SetUpProjectionMatrix(float zoom, float aspectRatio) {}
+void Geometry::SetUpProjectionMatrix(float fov, float aspectRatio) {}
 
 void Geometry::SetUpCamViewTransform(glm::mat4 viewMatrix) {}
 
 void Geometry::SetUpTransformations() {}
+
+void Geometry::Draw() {}
 
 Geometry::~Geometry() {
     // Deallocate resources

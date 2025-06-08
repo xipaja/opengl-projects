@@ -12,6 +12,7 @@
 #include "camera.h"
 #include "geometry.h"
 #include "cube.h"
+#include "rectangle.h"
 
 const float DEFAULT_WIDTH = 500;
 const float DEFAULT_HEIGHT = 500;
@@ -25,6 +26,7 @@ class Window {
         void PollEvents();
         void ProcessMouse(float xPos, float yPos);
         void Draw();
+        Camera& GetCamera();
 
     private:
         int _windowWidth;
@@ -127,6 +129,10 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _camera.ProcessMouseMovement(xOffset, yOffset);
 }
 
+Camera& Window::GetCamera() {
+    return _camera;
+}
+
 void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
@@ -143,18 +149,14 @@ void Window::Draw() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        cube.BindTexture();
-        cube.GetShader().Use();
-
         // Projection matrix
         float aspectRatio = (float)_windowWidth / (float)_windowHeight;
         cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
 
         // Cam/view transformation
         cube.SetUpCamViewTransform(_camera.GetViewMatrix());
-        
-        cube.BindVertexArray();
-        cube.SetUpTransformations();
+
+        cube.Draw();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();

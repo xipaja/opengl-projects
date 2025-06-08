@@ -3,8 +3,20 @@
 
 #include <glm/glm.hpp>
 
-// 3D cubes!
-float CUBES_EXAMPLE_VERTICES[] = {
+float RECTANGLE_VERTICES[] = {
+    0.5f, 0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+    -0.5f, 0.5f, 0.0f 
+};
+
+float RECTANGLE_INDICES[] = {
+    0, 1, 3,
+    1, 2, 3
+};
+
+// 3D cube!
+const float CUBE_EXAMPLE_VERTICES[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
