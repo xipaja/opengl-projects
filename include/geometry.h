@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <math.h>
+#include <vector>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <glm/glm.hpp>
@@ -12,7 +13,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "camera.h"
 #include "window.h"
-#include "vertices.h"
 #include "shader.h"
 
 class Geometry {
@@ -22,16 +22,16 @@ class Geometry {
         Shader& GetShader();
         void BindTexture();
         void BindVertexArray();
-        virtual void SetUpProjectionMatrix(float fov, float aspectRatio);
+        void SetUpProjectionMatrix(float fov, float aspectRatio);
         virtual void SetUpCamViewTransform(glm::mat4 viewMatrix);
         virtual void SetUpTransformations();
-        virtual void Draw();
+        virtual void Draw() = 0;
 
     protected:
         unsigned int _VBO, _VAO;
         Shader _customShader;
 
-        void _SetUpBuffers();
+        void _SetUpBuffers(const std::vector<float>& vertexData);
         virtual void _SetUpAttributes() = 0;
         virtual void _SetUpTexture();
     
@@ -44,14 +44,14 @@ class Geometry {
 Geometry::Geometry() :
 _customShader("shaders/cube/vertex.vs", "shaders/cube/fragment.fs") {}
 
-void Geometry::_SetUpBuffers() {
+void Geometry::_SetUpBuffers(const std::vector<float>& vertexData) {
     glGenVertexArrays(1, &_VAO);
     glGenBuffers(1, &_VBO);
     // Bind VAO, then bind and set VBO, then config attributes
     glBindVertexArray(_VAO);
     
     glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CUBE_EXAMPLE_VERTICES), CUBE_EXAMPLE_VERTICES, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
 }
 
 void Geometry::_SetUpAttributes() {}
@@ -75,8 +75,6 @@ void Geometry::_SetUpTexture() {
     } else {
         std::cout << "ERROR::TEXTURE::Failed to load texture" << std::endl;
     }
-
-    stbi_image_free(_textureImageData);
 }
 
 Shader& Geometry::GetShader() {
@@ -91,7 +89,13 @@ void Geometry::BindVertexArray() {
     glBindVertexArray(_VAO);
 }
 
-void Geometry::SetUpProjectionMatrix(float fov, float aspectRatio) {}
+void Geometry::SetUpProjectionMatrix(float fov, float aspectRatio) {
+    float zNear = 0.1f;
+    float zFar = 100.0f;
+    glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, zNear, zFar);
+    int projLocation = glGetUniformLocation(_customShader.id, "projection");
+    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
+}
 
 void Geometry::SetUpCamViewTransform(glm::mat4 viewMatrix) {}
 
@@ -103,6 +107,7 @@ Geometry::~Geometry() {
     // Deallocate resources
     glDeleteVertexArrays(1, &_VAO);
     glDeleteBuffers(1, &_VBO);
+    stbi_image_free(_textureImageData);
 }
 
 #endif

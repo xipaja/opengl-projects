@@ -2,6 +2,7 @@
 #define VERTICES_H
 
 #include <glm/glm.hpp>
+#include <vector>
 
 float RECTANGLE_VERTICES[] = {
     0.5f, 0.5f, 0.0f,
@@ -16,7 +17,7 @@ float RECTANGLE_INDICES[] = {
 };
 
 // 3D cube!
-const float CUBE_EXAMPLE_VERTICES[] = {
+const std::vector<float> CUBE_EXAMPLE_VERTICES = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,

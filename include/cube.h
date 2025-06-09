@@ -2,11 +2,11 @@
 #define CUBE_H
 
 #include "geometry.h"
+#include "vertices.h"
 
 class Cube : public Geometry {
     public:
         Cube();
-        void SetUpProjectionMatrix(float zoom, float aspectRatio) override;
         void SetUpCamViewTransform(glm::mat4 viewMatrix) override;
         void SetUpTransformations() override;
         void Draw() override;
@@ -16,7 +16,7 @@ class Cube : public Geometry {
 };
 
 Cube::Cube() : Geometry() {
-    _SetUpBuffers();
+    _SetUpBuffers(CUBE_EXAMPLE_VERTICES);
     _SetUpAttributes();
     _SetUpTexture();
 }
@@ -31,14 +31,6 @@ void Cube::_SetUpAttributes() {
     // Texture
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(2);
-}
-
-void Cube::SetUpProjectionMatrix(float zoom, float aspectRatio) {
-    float zNear = 0.1f;
-    float zFar = 100.0f;
-    glm::mat4 projection = glm::perspective(glm::radians(zoom), aspectRatio, zNear, zFar);
-    int projLocation = glGetUniformLocation(_customShader.id, "projection");
-    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 void Cube::SetUpCamViewTransform(glm::mat4 viewMatrix) {
