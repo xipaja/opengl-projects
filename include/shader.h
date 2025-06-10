@@ -17,9 +17,10 @@ class Shader {
         // Use/activate shader
         void Use();
         // Utility uniform functions
-        void SetBool(const std::string &name, bool value) const;
-        void SetInt(const std::string &name, int value) const;
-        void SetFloat(const std::string &name, float value) const;
+        void SetBool(const std::string& name, bool value) const;
+        void SetInt(const std::string& name, int value) const;
+        void SetFloat(const std::string& name, float value) const;
+        void SetMat4(const std::string& name, glm::mat4 matrix) const;
 };
 
 // Constructor
@@ -114,6 +115,11 @@ void Shader::SetInt(const std::string &name, int value) const {
 
 void Shader::SetFloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::SetMat4(const std::string& name, glm::mat4 matrix) const {
+    int location = glGetUniformLocation(id, name.c_str());
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 #endif

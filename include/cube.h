@@ -6,7 +6,7 @@
 
 class Cube : public Geometry {
     public:
-        Cube();
+        Cube(const char* vertPath, const char* fragPath);
         void SetUpCamViewTransform(glm::mat4 viewMatrix) override;
         void SetUpTransformations() override;
         void Draw() override;
@@ -15,10 +15,10 @@ class Cube : public Geometry {
         void _SetUpAttributes() override;
 };
 
-Cube::Cube() : Geometry() {
+Cube::Cube(const char* vertPath, const char* fragPath) : Geometry(vertPath, fragPath) {
     _SetUpBuffers(CUBE_EXAMPLE_VERTICES);
     _SetUpAttributes();
-    _SetUpTexture();
+    _SetUpTexture("fun_pattern.jpg");
 }
 
 void Cube::_SetUpAttributes() {
@@ -34,8 +34,7 @@ void Cube::_SetUpAttributes() {
 }
 
 void Cube::SetUpCamViewTransform(glm::mat4 viewMatrix) {
-    int viewLocation = glGetUniformLocation(_customShader.id, "view");
-    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+    _customShader.SetMat4("view", viewMatrix);
 }
 
 void Cube::SetUpTransformations() {
@@ -47,16 +46,14 @@ void Cube::SetUpTransformations() {
     //     model = glm::translate(model, CUBES_EXAMPLE_POSITIONS[i]);
     //     model = glm::rotate(model, (SDL_GetTicks() / 1000.0f) * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
-    //     int modelLocation = glGetUniformLocation(_customShader.id, "model");
-    //     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+    //     _customShader.SetMat4("model", model);
     //     glDrawArrays(GL_TRIANGLES, 0, 36);
     // }
 
     // ------------- Static cube in center ------------- 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, CUBES_EXAMPLE_POSITIONS[0]);
-    int modelLocation = glGetUniformLocation(_customShader.id, "model");
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, CUBES_EXAMPLE_POSITIONS[0]);
+    _customShader.SetMat4("model", modelMatrix);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 

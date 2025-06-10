@@ -131,7 +131,7 @@ void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
 
-    Cube cube;
+    Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
 
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();

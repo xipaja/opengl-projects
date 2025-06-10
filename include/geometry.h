@@ -17,7 +17,7 @@
 
 class Geometry {
     public:
-        Geometry();
+        Geometry(const char* vertPath, const char* fragPath);
         ~Geometry();
         Shader& GetShader();
         void BindTexture();
@@ -33,7 +33,7 @@ class Geometry {
 
         void _SetUpBuffers(const std::vector<float>& vertexData);
         virtual void _SetUpAttributes() = 0;
-        virtual void _SetUpTexture();
+        virtual void _SetUpTexture(const char* fileName);
     
     private:
         unsigned int _texture;
@@ -41,8 +41,8 @@ class Geometry {
         unsigned char* _textureImageData;
 };
 
-Geometry::Geometry() :
-_customShader("shaders/cube/vertex.vs", "shaders/cube/fragment.fs") {}
+Geometry::Geometry(const char* vertPath, const char* fragPath) :
+_customShader(vertPath, fragPath) {}
 
 void Geometry::_SetUpBuffers(const std::vector<float>& vertexData) {
     glGenVertexArrays(1, &_VAO);
@@ -56,7 +56,7 @@ void Geometry::_SetUpBuffers(const std::vector<float>& vertexData) {
 
 void Geometry::_SetUpAttributes() {}
 
-void Geometry::_SetUpTexture() {
+void Geometry::_SetUpTexture(const char* fileName) {
     glGenTextures(1, &_texture);
     glBindTexture(GL_TEXTURE_2D, _texture);
     // Set texture wrapping and filtering options
@@ -66,7 +66,7 @@ void Geometry::_SetUpTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // Load texture
-    _textureImageData = stbi_load("fun_pattern.jpg", &_textureWidth, &_textureHeight, &_textureNumChannels, 0);
+    _textureImageData = stbi_load(fileName, &_textureWidth, &_textureHeight, &_textureNumChannels, 0);
 
     // Generate texture
     if (_textureImageData) {
@@ -75,6 +75,8 @@ void Geometry::_SetUpTexture() {
     } else {
         std::cout << "ERROR::TEXTURE::Failed to load texture" << std::endl;
     }
+
+    stbi_image_free(_textureImageData);
 }
 
 Shader& Geometry::GetShader() {
@@ -92,9 +94,8 @@ void Geometry::BindVertexArray() {
 void Geometry::SetUpProjectionMatrix(float fov, float aspectRatio) {
     float zNear = 0.1f;
     float zFar = 100.0f;
-    glm::mat4 projection = glm::perspective(glm::radians(fov), aspectRatio, zNear, zFar);
-    int projLocation = glGetUniformLocation(_customShader.id, "projection");
-    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
+    glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, zNear, zFar);
+    _customShader.SetMat4("projection", projectionMatrix);
 }
 
 void Geometry::SetUpCamViewTransform(glm::mat4 viewMatrix) {}
@@ -107,7 +108,6 @@ Geometry::~Geometry() {
     // Deallocate resources
     glDeleteVertexArrays(1, &_VAO);
     glDeleteBuffers(1, &_VBO);
-    stbi_image_free(_textureImageData);
 }
 
 #endif
