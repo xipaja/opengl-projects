@@ -4,10 +4,6 @@
 #include <SDL3/SDL.h>
 #include <glad/glad.h>
 #include <iostream>
-#include <math.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include "camera.h"
 
 const float DEFAULT_WIDTH = 500;

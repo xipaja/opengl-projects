@@ -1,16 +1,8 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#include <SDL3/SDL.h>
-#include <glad/glad.h>
-#include <iostream>
-#include <math.h>
 #include <vector>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "camera.h"
-#include "window.h"
 #include "shader.h"
 
 class Geometry {
