@@ -21,7 +21,7 @@ class Geometry {
         unsigned int _VBO, _VAO;
         Shader _customShader;
 
-        void _SetUpBuffers(const std::vector<float>& vertexData);
+        virtual void _SetUpBuffers(const std::vector<float>& vertexData);
         virtual void _SetUpAttributes() = 0;
         virtual void _SetUpTexture(const char* fileName);
     

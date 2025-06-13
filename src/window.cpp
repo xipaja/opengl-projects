@@ -1,5 +1,6 @@
 #include "window.h"
 #include "cube.h"
+#include "rectangle.h"
 
 Window::Window() : 
 _windowWidth(DEFAULT_WIDTH), 
@@ -90,8 +91,9 @@ void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
 
-    Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
-
+    // Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
+    Rectangle rect("shaders/rectangle/vertex.vs", "shaders/rectangle/fragment.fs");
+    
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
         _deltaTime = currentFrameTime - _lastFrameTime;
@@ -104,12 +106,13 @@ void Window::Draw() {
 
         // Projection matrix
         float aspectRatio = (float)_windowWidth / (float)_windowHeight;
-        cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
-
+        // cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
+        // rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         // Cam/view transformation
-        cube.SetUpCamViewTransform(_camera.GetViewMatrix());
-
-        cube.Draw();
+        // cube.SetUpCamViewTransform(_camera.GetViewMatrix());
+        // rect.SetUpCamViewTransform(_camera.GetViewMatrix());
+        rect.Draw();
+        // cube.Draw();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();
