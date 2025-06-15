@@ -40,6 +40,8 @@ void Geometry::_SetUpTexture(const char* fileName) {
     stbi_image_free(_textureImageData);
 }
 
+void Geometry::_SetUpTransformations() {}
+
 Shader& Geometry::GetShader() {
     return _customShader;
 }
@@ -61,7 +63,6 @@ void Geometry::SetUpProjectionMatrix(float fov, float aspectRatio) {
 
 void Geometry::SetUpCamViewTransform(glm::mat4 viewMatrix) {}
 
-void Geometry::SetUpTransformations() {}
 
 void Geometry::Draw() {}
 

@@ -7,7 +7,7 @@ class Cube : public Geometry {
     public:
         Cube(const char* vertPath, const char* fragPath);
         void SetUpCamViewTransform(glm::mat4 viewMatrix) override;
-        void SetUpTransformations() override;
+        void _SetUpTransformations() override;
         void Draw() override;
     
     private:

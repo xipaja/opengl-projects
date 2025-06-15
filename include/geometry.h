@@ -14,7 +14,6 @@ class Geometry {
         void BindVertexArray();
         void SetUpProjectionMatrix(float fov, float aspectRatio);
         virtual void SetUpCamViewTransform(glm::mat4 viewMatrix);
-        virtual void SetUpTransformations();
         virtual void Draw() = 0;
 
     protected:
@@ -24,6 +23,7 @@ class Geometry {
         virtual void _SetUpBuffers(const std::vector<float>& vertexData);
         virtual void _SetUpAttributes() = 0;
         virtual void _SetUpTexture(const char* fileName);
+        virtual void _SetUpTransformations();
     
     private:
         unsigned int _texture;

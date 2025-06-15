@@ -107,12 +107,13 @@ void Window::Draw() {
         // Projection matrix
         float aspectRatio = (float)_windowWidth / (float)_windowHeight;
         // cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
-        // rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         // Cam/view transformation
         // cube.SetUpCamViewTransform(_camera.GetViewMatrix());
-        // rect.SetUpCamViewTransform(_camera.GetViewMatrix());
-        rect.Draw();
         // cube.Draw();
+
+        rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
+        rect.SetUpCamViewTransform(_camera.GetViewMatrix());
+        rect.Draw();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();

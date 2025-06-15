@@ -23,7 +23,7 @@ void Cube::SetUpCamViewTransform(glm::mat4 viewMatrix) {
     _customShader.SetMat4("view", viewMatrix);
 }
 
-void Cube::SetUpTransformations() {
+void Cube::_SetUpTransformations() {
     // ------------- Rotating cubes ------------- 
     // for (unsigned int i = 0; i < 10; i++) {
     //     float angle = 20.0f * i;
@@ -47,5 +47,5 @@ void Cube::Draw() {
     BindTexture();
     _customShader.Use();
     BindVertexArray();
-    SetUpTransformations();
+    _SetUpTransformations();
 }
