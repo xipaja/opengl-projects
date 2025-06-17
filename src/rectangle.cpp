@@ -28,13 +28,12 @@ void Rectangle::_SetUpAttributes() {
 }
 
 void Rectangle::_SetUpTransformations() {
-    glm::mat4 transform = glm::mat4(1.0f);
-    // transformation = glm::translate(transformation, glm::vec3(0.0f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-    transform = glm::scale(transform, glm::vec3(1.5, 0.5, 0.5));
-
     _customShader.Use();
-    _customShader.SetMat4("transform", transform);
+    
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    _customShader.SetMat4("model", modelMatrix);
 }
 
 void Rectangle::SetUpCamViewTransform(glm::mat4 viewMatrix) {
