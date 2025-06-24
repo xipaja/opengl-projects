@@ -84,15 +84,15 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _lastX = xPos;
     _lastY = yPos;
     
-    _camera.ProcessMouseMovement(xOffset, yOffset);
+    // _camera.ProcessMouseMovement(xOffset, yOffset);
 }
 
 void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
 
-    // Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
-    Rectangle rect("shaders/rectangle/vertex.vs", "shaders/rectangle/fragment.fs");
+    Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
+    // Rectangle rect("shaders/rectangle/vertex.vs", "shaders/rectangle/fragment.fs");
     
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
@@ -106,14 +106,14 @@ void Window::Draw() {
 
         // Projection matrix
         float aspectRatio = (float)_windowWidth / (float)_windowHeight;
-        // cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
+        cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         // Cam/view transformation
-        // cube.SetUpCamViewTransform(_camera.GetViewMatrix());
-        // cube.Draw();
+        cube.SetUpCamViewTransform(_camera.GetViewMatrix());
+        cube.Draw();
 
-        rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
-        rect.SetUpCamViewTransform(_camera.GetViewMatrix());
-        rect.Draw();
+        // rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
+        // rect.SetUpCamViewTransform(_camera.GetViewMatrix());
+        // rect.Draw();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();

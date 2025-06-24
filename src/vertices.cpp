@@ -4,12 +4,16 @@ const std::vector<float> RECTANGLE_VERTICES = {
     0.5f,  0.5f, 0.0f,  // top right
     0.5f, -0.5f, 0.0f,  // bottom right
     -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
+    -0.5f,  0.5f, 0.0f,   // top left,
+    1.0f, 0.5f, 0.0f,
+    1.0f, -0.5f, 0.0f
 };
 
 const std::vector<int> RECTANGLE_INDICES = {
     0, 1, 3,
-    1, 2, 3
+    1, 2, 3,
+    0, 4, 5,
+    0, 1, 5
 };
 
 // 3D cube!
@@ -22,7 +26,7 @@ const std::vector<float> CUBE_EXAMPLE_VERTICES = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
     -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 
     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
     -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
