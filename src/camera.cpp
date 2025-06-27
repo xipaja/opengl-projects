@@ -25,16 +25,16 @@ void Camera::ProcessKeyboardInput(float deltaTime) {
     const float cameraVelocity = MovementSpeed * deltaTime;
 
     if (state[SDL_SCANCODE_W]) {
-        // Move forward
-        Position += cameraVelocity * Front;
+        // Move up
+        Position += cameraVelocity * Up;
     }
     else if (state[SDL_SCANCODE_A]) {
         // Move left
         Position -= cameraVelocity * Right;
     }
     else if (state[SDL_SCANCODE_S]) {
-        // Move back
-        Position -= cameraVelocity * Front;
+        // Move down
+        Position -= cameraVelocity * Up;
     }
     else if (state[SDL_SCANCODE_D]) {
         // Move right
