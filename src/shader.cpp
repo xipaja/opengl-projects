@@ -103,3 +103,8 @@ void Shader::SetVec3(const std::string& name, float x, float y, float z) const {
     unsigned int location = glGetUniformLocation(id, name.c_str());
     glUniform3f(location, x, y, z);
 }
+
+void Shader::SetVec3(const std::string& name, glm::vec3 vec) const {
+    unsigned int location = glGetUniformLocation(id, name.c_str());
+    glUniform3fv(location, 1, glm::value_ptr(vec));
+}

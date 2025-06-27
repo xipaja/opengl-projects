@@ -88,11 +88,12 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _camera.ProcessMouseMovement(xOffset, yOffset);
 }
 
-glm::vec3 lightPos(0.5f, 0.8f, .0f);
+glm::vec3 lightPos(0.5f, 3.0f, 3.0f);
 
 void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
+    float aspectRatio = (float)_windowWidth / (float)_windowHeight;
 
     Cube cube("shaders/lighting/vertex.vs", "shaders/lighting/fragment.fs");
     Cube lamp("shaders/lamp/vertex.vs", "shaders/lamp/fragment.fs");
@@ -104,30 +105,26 @@ void Window::Draw() {
 
         _camera.ProcessKeyboardInput(_deltaTime);
 
-        // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         cube.GetShader().Use();
         cube.GetShader().SetVec3("objectColor", 1.0f, 0.5f, 0.3f);
         cube.GetShader().SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        glm::mat4 modelCube = glm::mat4(1.0f);
-        modelCube = glm::translate(modelCube, CUBES_EXAMPLE_POSITIONS[0]);
-        cube.SetModelMatrix(modelCube);
-        // Projection matrix
-        float aspectRatio = (float)_windowWidth / (float)_windowHeight;
+        cube.GetShader().SetVec3("lightPos", lightPos);
         cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
-        // Cam/view transformation
         cube.SetUpCamViewTransform(_camera.GetViewMatrix());
+        glm::mat4 modelMatrix = glm::mat4(1.0f);
+        cube.SetModelMatrix(modelMatrix);
         cube.Draw();
 
         lamp.GetShader().Use();
-        glm::mat4 modelLight = glm::mat4(1.0f);
-        modelLight = glm::translate(modelLight, lightPos);
-        modelLight = glm::scale(modelLight, glm::vec3(0.5f));
-        lamp.SetModelMatrix(modelLight);
         lamp.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         lamp.SetUpCamViewTransform(_camera.GetViewMatrix());
+        modelMatrix = glm::mat4(1.0f);
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f));
+        modelMatrix = glm::translate(modelMatrix, lightPos);
+        lamp.SetModelMatrix(modelMatrix);
         lamp.Draw();
 
         SDL_GL_SwapWindow(_window);

@@ -2,21 +2,21 @@
 #include "vertices.h"
 
 Cube::Cube(const char* vertPath, const char* fragPath) : Geometry(vertPath, fragPath) {
-    _SetUpBuffers(CUBE_EXAMPLE_VERTICES);
+    _SetUpBuffers(CUBE_EXAMPLE_VERTICES_NORMALS);
     _SetUpAttributes();
     _SetUpTexture("assets/fun_pattern.jpg");
 }
 
 void Cube::_SetUpAttributes() {
-    // Position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // Position - stride is 6 for normals
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // Color
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    // Normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
     // Texture
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    // glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    // glEnableVertexAttribArray(2);
 }
 
 void Cube::SetUpCamViewTransform(glm::mat4 viewMatrix) {
@@ -44,18 +44,10 @@ void Cube::_SetUpTransformations(glm::mat4 modelMatrix = glm::mat4(1.0f)) {
     // glm::mat4 modelMatrix = glm::mat4(1.0f);
     // modelMatrix = glm::translate(modelMatrix, CUBES_EXAMPLE_POSITIONS[0]);
     _customShader.SetMat4("model", modelMatrix);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Cube::Draw() {
     BindTexture();
-    BindVertexArray();
-    _SetUpTransformations();
+    // _SetUpTransformations();
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 }
-
-// void Cube::DrawSimpleCube() {
-//     _customShader.Use();
-//      glm::mat4 modelCube = glm::mat4(1.0f);
-//     modelCube = glm::translate(modelCube, CUBES_EXAMPLE_POSITIONS[0]);
-//     SetModelMatrix(modelCube);
-// }

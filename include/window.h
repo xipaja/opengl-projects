@@ -6,8 +6,8 @@
 #include <iostream>
 #include "camera.h"
 
-const float DEFAULT_WIDTH = 500;
-const float DEFAULT_HEIGHT = 500;
+const float DEFAULT_WIDTH = 700;
+const float DEFAULT_HEIGHT = 700;
 const float DEFAULT_LAST_X = DEFAULT_WIDTH / 2.0f;
 const float DEFAULT_LAST_Y = DEFAULT_HEIGHT / 2.0f;
 

@@ -7,6 +7,7 @@
 extern const std::vector<float> RECTANGLE_VERTICES;
 extern const std::vector<int> RECTANGLE_INDICES;
 extern const std::vector<float> CUBE_EXAMPLE_VERTICES;
+extern const std::vector<float> CUBE_EXAMPLE_VERTICES_NORMALS;
 extern glm::vec3 CUBES_EXAMPLE_POSITIONS[];
 
 #endif
