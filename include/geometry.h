@@ -14,6 +14,7 @@ class Geometry {
         void BindVertexArray();
         void SetUpProjectionMatrix(float fov, float aspectRatio);
         virtual void SetUpCamViewTransform(glm::mat4 viewMatrix);
+        virtual void SetModelMatrix(glm::mat4 modelMatrix);
         virtual void Draw() = 0;
 
     protected:

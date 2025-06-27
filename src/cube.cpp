@@ -23,7 +23,11 @@ void Cube::SetUpCamViewTransform(glm::mat4 viewMatrix) {
     _customShader.SetMat4("view", viewMatrix);
 }
 
-void Cube::_SetUpTransformations() {
+void Cube::SetModelMatrix(glm::mat4 modelMatrix) {
+    _SetUpTransformations(modelMatrix);
+}
+
+void Cube::_SetUpTransformations(glm::mat4 modelMatrix = glm::mat4(1.0f)) {
     // ------------- Rotating cubes ------------- 
     // for (unsigned int i = 0; i < 10; i++) {
     //     float angle = 20.0f * i;
@@ -37,15 +41,21 @@ void Cube::_SetUpTransformations() {
     // }
 
     // ------------- Static cube in center ------------- 
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, CUBES_EXAMPLE_POSITIONS[0]);
+    // glm::mat4 modelMatrix = glm::mat4(1.0f);
+    // modelMatrix = glm::translate(modelMatrix, CUBES_EXAMPLE_POSITIONS[0]);
     _customShader.SetMat4("model", modelMatrix);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Cube::Draw() {
     BindTexture();
-    _customShader.Use();
     BindVertexArray();
     _SetUpTransformations();
 }
+
+// void Cube::DrawSimpleCube() {
+//     _customShader.Use();
+//      glm::mat4 modelCube = glm::mat4(1.0f);
+//     modelCube = glm::translate(modelCube, CUBES_EXAMPLE_POSITIONS[0]);
+//     SetModelMatrix(modelCube);
+// }

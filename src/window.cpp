@@ -1,6 +1,7 @@
 #include "window.h"
 #include "cube.h"
 #include "rectangle.h"
+#include "vertices.h"
 
 Window::Window() : 
 _windowWidth(DEFAULT_WIDTH), 
@@ -84,16 +85,18 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _lastX = xPos;
     _lastY = yPos;
     
-    // _camera.ProcessMouseMovement(xOffset, yOffset);
+    _camera.ProcessMouseMovement(xOffset, yOffset);
 }
+
+glm::vec3 lightPos(0.5f, 0.8f, .0f);
 
 void Window::Draw() {
     InitWindow();
     glEnable(GL_DEPTH_TEST);
 
-    Cube cube("shaders/cube/vertex.vs", "shaders/cube/fragment.fs");
-    // Rectangle rect("shaders/rectangle/vertex.vs", "shaders/rectangle/fragment.fs");
-    
+    Cube cube("shaders/lighting/vertex.vs", "shaders/lighting/fragment.fs");
+    Cube lamp("shaders/lamp/vertex.vs", "shaders/lamp/fragment.fs");
+
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
         _deltaTime = currentFrameTime - _lastFrameTime;
@@ -101,9 +104,16 @@ void Window::Draw() {
 
         _camera.ProcessKeyboardInput(_deltaTime);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        cube.GetShader().Use();
+        cube.GetShader().SetVec3("objectColor", 1.0f, 0.5f, 0.3f);
+        cube.GetShader().SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
+        glm::mat4 modelCube = glm::mat4(1.0f);
+        modelCube = glm::translate(modelCube, CUBES_EXAMPLE_POSITIONS[0]);
+        cube.SetModelMatrix(modelCube);
         // Projection matrix
         float aspectRatio = (float)_windowWidth / (float)_windowHeight;
         cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
@@ -111,9 +121,14 @@ void Window::Draw() {
         cube.SetUpCamViewTransform(_camera.GetViewMatrix());
         cube.Draw();
 
-        // rect.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
-        // rect.SetUpCamViewTransform(_camera.GetViewMatrix());
-        // rect.Draw();
+        lamp.GetShader().Use();
+        glm::mat4 modelLight = glm::mat4(1.0f);
+        modelLight = glm::translate(modelLight, lightPos);
+        modelLight = glm::scale(modelLight, glm::vec3(0.5f));
+        lamp.SetModelMatrix(modelLight);
+        lamp.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
+        lamp.SetUpCamViewTransform(_camera.GetViewMatrix());
+        lamp.Draw();
 
         SDL_GL_SwapWindow(_window);
         PollEvents();
