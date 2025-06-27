@@ -88,7 +88,7 @@ void Window::ProcessMouse(float xPos, float yPos) {
     _camera.ProcessMouseMovement(xOffset, yOffset);
 }
 
-glm::vec3 lightPos(0.5f, 3.0f, 3.0f);
+glm::vec3 lightPos(4.2f, 5.0f, -5.0f);
 
 void Window::Draw() {
     InitWindow();
@@ -112,6 +112,7 @@ void Window::Draw() {
         cube.GetShader().SetVec3("objectColor", 1.0f, 0.5f, 0.3f);
         cube.GetShader().SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
         cube.GetShader().SetVec3("lightPos", lightPos);
+        cube.GetShader().SetVec3("viewPos", _camera.Position);
         cube.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         cube.SetUpCamViewTransform(_camera.GetViewMatrix());
         glm::mat4 modelMatrix = glm::mat4(1.0f);
@@ -122,7 +123,7 @@ void Window::Draw() {
         lamp.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
         lamp.SetUpCamViewTransform(_camera.GetViewMatrix());
         modelMatrix = glm::mat4(1.0f);
-        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
         modelMatrix = glm::translate(modelMatrix, lightPos);
         lamp.SetModelMatrix(modelMatrix);
         lamp.Draw();
