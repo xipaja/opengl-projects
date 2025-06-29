@@ -1,0 +1,3 @@
+C:/Users/Ximena/Desktop/opengl_projects/build/CMakeFiles/output.dir
+C:/Users/Ximena/Desktop/opengl_projects/build/CMakeFiles/edit_cache.dir
+C:/Users/Ximena/Desktop/opengl_projects/build/CMakeFiles/rebuild_cache.dir
