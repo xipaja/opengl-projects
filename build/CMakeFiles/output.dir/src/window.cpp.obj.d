@@ -470,4 +470,53 @@ CMakeFiles/output.dir/src/window.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.1.0/sstream \
  C:/msys64/mingw64/include/c++/15.1.0/bits/sstream.tcc \
  C:/Users/Ximena/Desktop/opengl_projects/include/rectangle.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/vertices.h
+ C:/Users/Ximena/Desktop/opengl_projects/include/vertices.h \
+ C:/Users/Ximena/Desktop/opengl_projects/include/model.h \
+ C:/Users/Ximena/Desktop/opengl_projects/include/mesh.h \
+ C:/msys64/mingw64/include/assimp/Importer.hpp \
+ C:/msys64/mingw64/include/assimp/types.h \
+ C:/msys64/mingw64/include/assimp/defs.h \
+ C:/msys64/mingw64/include/assimp/config.h \
+ C:/msys64/mingw64/include/assimp/vector2.h \
+ C:/msys64/mingw64/include/assimp/vector3.h \
+ C:/msys64/mingw64/include/assimp/color4.h \
+ C:/msys64/mingw64/include/assimp/matrix3x3.h \
+ C:/msys64/mingw64/include/assimp/matrix4x4.h \
+ C:/msys64/mingw64/include/assimp/quaternion.h \
+ C:/msys64/mingw64/include/assimp/vector2.inl \
+ C:/msys64/mingw64/include/assimp/vector3.inl \
+ C:/msys64/mingw64/include/assimp/color4.inl \
+ C:/msys64/mingw64/include/assimp/matrix3x3.inl \
+ C:/msys64/mingw64/include/c++/15.1.0/algorithm \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/stl_algo.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/algorithmfwd.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/stl_heap.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/uniform_int_dist.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/stl_tempbuf.h \
+ C:/msys64/mingw64/include/c++/15.1.0/pstl/glue_algorithm_defs.h \
+ C:/msys64/mingw64/include/c++/15.1.0/pstl/execution_defs.h \
+ C:/msys64/mingw64/include/assimp/matrix4x4.inl \
+ C:/msys64/mingw64/include/assimp/MathFunctions.h \
+ C:/msys64/mingw64/include/assimp/quaternion.inl \
+ C:/msys64/mingw64/include/assimp/scene.h \
+ C:/msys64/mingw64/include/assimp/texture.h \
+ C:/msys64/mingw64/include/assimp/Compiler/pushpack1.h \
+ C:/msys64/mingw64/include/assimp/Compiler/poppack1.h \
+ C:/msys64/mingw64/include/assimp/mesh.h \
+ C:/msys64/mingw64/include/assimp/aabb.h \
+ C:/msys64/mingw64/include/c++/15.1.0/unordered_set \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/unordered_set.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/hashtable.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/hashtable_policy.h \
+ C:/msys64/mingw64/include/c++/15.1.0/ext/aligned_buffer.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/enable_special_members.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/node_handle.h \
+ C:/msys64/mingw64/include/c++/15.1.0/bits/erase_if.h \
+ C:/msys64/mingw64/include/assimp/light.h \
+ C:/msys64/mingw64/include/assimp/camera.h \
+ C:/msys64/mingw64/include/assimp/material.h \
+ C:/msys64/mingw64/include/assimp/material.inl \
+ C:/msys64/mingw64/include/assimp/anim.h \
+ C:/msys64/mingw64/include/assimp/metadata.h \
+ C:/msys64/mingw64/include/assimp/postprocess.h \
+ C:/Users/Ximena/Desktop/opengl_projects/include/stb_image.h

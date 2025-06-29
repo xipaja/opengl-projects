@@ -451,4 +451,5 @@ CMakeFiles/output.dir/src/model.cpp.obj: \
  C:/msys64/mingw64/include/assimp/material.inl \
  C:/msys64/mingw64/include/assimp/anim.h \
  C:/msys64/mingw64/include/assimp/metadata.h \
- C:/msys64/mingw64/include/assimp/postprocess.h
+ C:/msys64/mingw64/include/assimp/postprocess.h \
+ C:/Users/Ximena/Desktop/opengl_projects/include/stb_image.h

@@ -2,6 +2,7 @@
 #include "cube.h"
 #include "rectangle.h"
 #include "vertices.h"
+#include "model.h"
 
 Window::Window() : 
 _windowWidth(DEFAULT_WIDTH), 
@@ -97,6 +98,8 @@ void Window::Draw() {
 
     Cube cube("../shaders/lighting/vertex.vs", "../shaders/lighting/fragment.fs");
     Cube lamp("../shaders/lamp/vertex.vs", "../shaders/lamp/fragment.fs");
+    Shader backpackShader("../shaders/model/vertex.vs", "../shaders/model/fragment.fs");
+    Model backpack("../backpack/backpack.obj");
 
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
@@ -127,6 +130,8 @@ void Window::Draw() {
         modelMatrix = glm::translate(modelMatrix, lightPos);
         lamp.SetModelMatrix(modelMatrix);
         lamp.Draw();
+
+        backpack.Draw(backpackShader);
 
         SDL_GL_SwapWindow(_window);
         PollEvents();
