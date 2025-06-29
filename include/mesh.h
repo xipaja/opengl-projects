@@ -1,3 +1,6 @@
+#ifndef MESH_H
+#define MESH_H
+
 #include "glm/glm.hpp"
 #include <string>
 #include <vector>
@@ -28,3 +31,4 @@ class Mesh {
         void _SetUpMesh();
 };
 
+#endif

@@ -23,7 +23,7 @@ void Mesh::_SetUpMesh() {
     glEnableVertexAttribArray(0);
 
     // Vertex normals
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, (Normal));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
     glEnableVertexAttribArray(1);
     
     // Vertex texture coords
@@ -41,13 +41,13 @@ void Mesh::Draw(Shader& shader) {
         // Activate proper texture unit before binding
         glActiveTexture(GL_TEXTURE0 + i);
         
-        string number;
-        string name = textures[i].type;
+        std::string number;
+        std::string name = textures[i].type;
 
         if (name == "texture_diffuse") {
-            number = std::to_string(diffuseN++);
+            number = std::to_string(diffuseNum++);
         } else if (name == "texture_specular") {
-            number = std::to_string(specularN++);
+            number = std::to_string(specularNum++);
         }
 
         shader.SetInt(("material." + name + number).c_str(), i);
