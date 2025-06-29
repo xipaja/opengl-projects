@@ -96,10 +96,15 @@ void Window::Draw() {
     glEnable(GL_DEPTH_TEST);
     float aspectRatio = (float)_windowWidth / (float)_windowHeight;
 
+    // Tell std_image.h to flip textures vertically on y-axis so they don't look weird
+    stbi_set_flip_vertically_on_load(true);
+
     Cube cube("../shaders/lighting/vertex.vs", "../shaders/lighting/fragment.fs");
     Cube lamp("../shaders/lamp/vertex.vs", "../shaders/lamp/fragment.fs");
     Shader backpackShader("../shaders/model/vertex.vs", "../shaders/model/fragment.fs");
     Model backpack("../backpack/backpack.obj");
+    // Wireframe
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
 
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();
@@ -120,7 +125,7 @@ void Window::Draw() {
         cube.SetUpCamViewTransform(_camera.GetViewMatrix());
         glm::mat4 modelMatrix = glm::mat4(1.0f);
         cube.SetModelMatrix(modelMatrix);
-        cube.Draw();
+        // cube.Draw();
 
         lamp.GetShader().Use();
         lamp.SetUpProjectionMatrix(_camera.Zoom, aspectRatio);
@@ -129,8 +134,16 @@ void Window::Draw() {
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f));
         modelMatrix = glm::translate(modelMatrix, lightPos);
         lamp.SetModelMatrix(modelMatrix);
-        lamp.Draw();
+        // lamp.Draw();
 
+        backpackShader.Use();
+        glm::mat4 proj = glm::perspective(glm::radians(_camera.Zoom), aspectRatio, 0.1f, 100.0f);
+        glm::mat4 view = _camera.GetViewMatrix();
+        backpackShader.SetMat4("projection", proj);
+        backpackShader.SetMat4("view", view);
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        backpackShader.SetMat4("model", model);
         backpack.Draw(backpackShader);
 
         SDL_GL_SwapWindow(_window);
