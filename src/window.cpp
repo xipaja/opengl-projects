@@ -95,8 +95,8 @@ void Window::Draw() {
     glEnable(GL_DEPTH_TEST);
     float aspectRatio = (float)_windowWidth / (float)_windowHeight;
 
-    Cube cube("shaders/lighting/vertex.vs", "shaders/lighting/fragment.fs");
-    Cube lamp("shaders/lamp/vertex.vs", "shaders/lamp/fragment.fs");
+    Cube cube("../shaders/lighting/vertex.vs", "../shaders/lighting/fragment.fs");
+    Cube lamp("../shaders/lamp/vertex.vs", "../shaders/lamp/fragment.fs");
 
     while (!_Quit) {
         float currentFrameTime = SDL_GetTicks();

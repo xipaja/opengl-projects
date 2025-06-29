@@ -19,9 +19,9 @@ class Model {
         std::string directory;
 
         void _LoadModel(std::string path);
-        void _ProcessNode(aiNode* node, const aiScene* scene);
-        Mesh _ProcessMesh(aiMesh* mesh, const aiScene* scene);
-        std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType texType, std::string typeName);
+        // void _ProcessNode(aiNode* node, const aiScene* scene);
+        // Mesh _ProcessMesh(aiMesh* mesh, const aiScene* scene);
+        // std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType texType, std::string typeName);
 };
 
 #endif

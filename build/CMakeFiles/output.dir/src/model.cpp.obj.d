@@ -406,20 +406,20 @@ CMakeFiles/output.dir/src/model.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.1.0/bits/stl_vector.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/stl_bvector.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/vector.tcc \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Importer.hpp \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/types.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/defs.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/config.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.inl \
+ C:/msys64/mingw64/include/assimp/Importer.hpp \
+ C:/msys64/mingw64/include/assimp/types.h \
+ C:/msys64/mingw64/include/assimp/defs.h \
+ C:/msys64/mingw64/include/assimp/config.h \
+ C:/msys64/mingw64/include/assimp/vector2.h \
+ C:/msys64/mingw64/include/assimp/vector3.h \
+ C:/msys64/mingw64/include/assimp/color4.h \
+ C:/msys64/mingw64/include/assimp/matrix3x3.h \
+ C:/msys64/mingw64/include/assimp/matrix4x4.h \
+ C:/msys64/mingw64/include/assimp/quaternion.h \
+ C:/msys64/mingw64/include/assimp/vector2.inl \
+ C:/msys64/mingw64/include/assimp/vector3.inl \
+ C:/msys64/mingw64/include/assimp/color4.inl \
+ C:/msys64/mingw64/include/assimp/matrix3x3.inl \
  C:/msys64/mingw64/include/c++/15.1.0/algorithm \
  C:/msys64/mingw64/include/c++/15.1.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/algorithmfwd.h \
@@ -428,15 +428,15 @@ CMakeFiles/output.dir/src/model.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.1.0/bits/stl_tempbuf.h \
  C:/msys64/mingw64/include/c++/15.1.0/pstl/glue_algorithm_defs.h \
  C:/msys64/mingw64/include/c++/15.1.0/pstl/execution_defs.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/MathFunctions.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Scene.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/texture.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/pushpack1.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/poppack1.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/mesh.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/aabb.h \
+ C:/msys64/mingw64/include/assimp/matrix4x4.inl \
+ C:/msys64/mingw64/include/assimp/MathFunctions.h \
+ C:/msys64/mingw64/include/assimp/quaternion.inl \
+ C:/msys64/mingw64/include/assimp/scene.h \
+ C:/msys64/mingw64/include/assimp/texture.h \
+ C:/msys64/mingw64/include/assimp/Compiler/pushpack1.h \
+ C:/msys64/mingw64/include/assimp/Compiler/poppack1.h \
+ C:/msys64/mingw64/include/assimp/mesh.h \
+ C:/msys64/mingw64/include/assimp/aabb.h \
  C:/msys64/mingw64/include/c++/15.1.0/unordered_set \
  C:/msys64/mingw64/include/c++/15.1.0/bits/unordered_set.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/hashtable.h \
@@ -445,10 +445,10 @@ CMakeFiles/output.dir/src/model.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.1.0/bits/enable_special_members.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/node_handle.h \
  C:/msys64/mingw64/include/c++/15.1.0/bits/erase_if.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/light.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/camera.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.inl \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/anim.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/metadata.h \
- C:/Users/Ximena/Desktop/opengl_projects/include/assimp/postprocess.h
+ C:/msys64/mingw64/include/assimp/light.h \
+ C:/msys64/mingw64/include/assimp/camera.h \
+ C:/msys64/mingw64/include/assimp/material.h \
+ C:/msys64/mingw64/include/assimp/material.inl \
+ C:/msys64/mingw64/include/assimp/anim.h \
+ C:/msys64/mingw64/include/assimp/metadata.h \
+ C:/msys64/mingw64/include/assimp/postprocess.h

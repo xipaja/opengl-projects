@@ -2367,36 +2367,6 @@ CMakeFiles/output.dir/src/mesh.cpp.obj: C:/Users/Ximena/Desktop/opengl_projects/
 
 CMakeFiles/output.dir/src/model.cpp.obj: C:/Users/Ximena/Desktop/opengl_projects/src/model.cpp \
   C:/Users/Ximena/Desktop/opengl_projects/include/KHR/khrplatform.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/poppack1.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/pushpack1.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Importer.hpp \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/MathFunctions.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Scene.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/aabb.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/anim.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/camera.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/config.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/defs.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/light.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/mesh.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/metadata.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/postprocess.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/texture.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/types.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.inl \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.h \
-  C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.inl \
   C:/Users/Ximena/Desktop/opengl_projects/include/glad/glad.h \
   C:/Users/Ximena/Desktop/opengl_projects/include/glm/common.hpp \
   C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/_fixes.hpp \
@@ -2505,6 +2475,36 @@ CMakeFiles/output.dir/src/model.cpp.obj: C:/Users/Ximena/Desktop/opengl_projects
   C:/msys64/mingw64/include/_mingw_stat64.h \
   C:/msys64/mingw64/include/_timeval.h \
   C:/msys64/mingw64/include/assert.h \
+  C:/msys64/mingw64/include/assimp/Compiler/poppack1.h \
+  C:/msys64/mingw64/include/assimp/Compiler/pushpack1.h \
+  C:/msys64/mingw64/include/assimp/Importer.hpp \
+  C:/msys64/mingw64/include/assimp/MathFunctions.h \
+  C:/msys64/mingw64/include/assimp/aabb.h \
+  C:/msys64/mingw64/include/assimp/anim.h \
+  C:/msys64/mingw64/include/assimp/camera.h \
+  C:/msys64/mingw64/include/assimp/color4.h \
+  C:/msys64/mingw64/include/assimp/color4.inl \
+  C:/msys64/mingw64/include/assimp/config.h \
+  C:/msys64/mingw64/include/assimp/defs.h \
+  C:/msys64/mingw64/include/assimp/light.h \
+  C:/msys64/mingw64/include/assimp/material.h \
+  C:/msys64/mingw64/include/assimp/material.inl \
+  C:/msys64/mingw64/include/assimp/matrix3x3.h \
+  C:/msys64/mingw64/include/assimp/matrix3x3.inl \
+  C:/msys64/mingw64/include/assimp/matrix4x4.h \
+  C:/msys64/mingw64/include/assimp/matrix4x4.inl \
+  C:/msys64/mingw64/include/assimp/mesh.h \
+  C:/msys64/mingw64/include/assimp/metadata.h \
+  C:/msys64/mingw64/include/assimp/postprocess.h \
+  C:/msys64/mingw64/include/assimp/quaternion.h \
+  C:/msys64/mingw64/include/assimp/quaternion.inl \
+  C:/msys64/mingw64/include/assimp/scene.h \
+  C:/msys64/mingw64/include/assimp/texture.h \
+  C:/msys64/mingw64/include/assimp/types.h \
+  C:/msys64/mingw64/include/assimp/vector2.h \
+  C:/msys64/mingw64/include/assimp/vector2.inl \
+  C:/msys64/mingw64/include/assimp/vector3.h \
+  C:/msys64/mingw64/include/assimp/vector3.inl \
   C:/msys64/mingw64/include/c++/15.1.0/algorithm \
   C:/msys64/mingw64/include/c++/15.1.0/backward/binders.h \
   C:/msys64/mingw64/include/c++/15.1.0/bit \
@@ -4451,8 +4451,6 @@ C:/msys64/mingw64/include/c++/15.1.0/ext/aligned_buffer.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/uniform_int_dist.h:
 
-C:/msys64/mingw64/include/c++/15.1.0/bits/stl_tempbuf.h:
-
 C:/msys64/mingw64/include/c++/15.1.0/bits/stl_heap.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/node_handle.h:
@@ -4461,37 +4459,39 @@ C:/msys64/mingw64/include/c++/15.1.0/bits/hashtable_policy.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/algorithmfwd.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.inl:
+C:/msys64/mingw64/include/assimp/vector3.inl:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector3.h:
+C:/msys64/mingw64/include/assimp/vector3.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.h:
+C:/msys64/mingw64/include/assimp/vector2.inl:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/texture.h:
+C:/msys64/mingw64/include/assimp/vector2.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.inl:
+C:/msys64/mingw64/include/assimp/quaternion.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/postprocess.h:
+C:/msys64/mingw64/include/assimp/mesh.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/metadata.h:
+C:/msys64/mingw64/include/assimp/matrix4x4.inl:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/mesh.h:
+C:/msys64/mingw64/include/assimp/matrix4x4.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.inl:
+C:/msys64/mingw64/include/assimp/matrix3x3.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix4x4.h:
+C:/msys64/mingw64/include/assimp/config.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.inl:
+C:/msys64/mingw64/include/assimp/color4.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/defs.h:
+C:/msys64/mingw64/include/assimp/camera.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.h:
+C:/msys64/mingw64/include/assimp/anim.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/anim.h:
+C:/msys64/mingw64/include/c++/15.1.0/bits/stl_tempbuf.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/aabb.h:
+C:/msys64/mingw64/include/assimp/MathFunctions.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Importer.hpp:
+C:/msys64/mingw64/include/assimp/color4.inl:
+
+C:/msys64/mingw64/include/assimp/Compiler/poppack1.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/mesh.h:
 
@@ -4517,8 +4517,6 @@ C:/msys64/mingw64/include/winscard.h:
 
 C:/msys64/mingw64/include/winreg.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/vector2.inl:
-
 C:/msys64/mingw64/include/winnt.h:
 
 C:/msys64/mingw64/include/winnls.h:
@@ -4530,8 +4528,6 @@ C:/msys64/mingw64/include/windows.h:
 C:/msys64/mingw64/include/wincrypt.h:
 
 C:/msys64/mingw64/include/wincon.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/config.h:
 
 C:/msys64/mingw64/include/winbase.h:
 
@@ -4575,6 +4571,8 @@ C:/msys64/mingw64/include/rpcnterr.h:
 
 C:/msys64/mingw64/include/rpcnsip.h:
 
+C:/msys64/mingw64/include/assimp/Compiler/pushpack1.h:
+
 C:/msys64/mingw64/include/rpcdcep.h:
 
 C:/msys64/mingw64/include/rpcdce.h:
@@ -4584,8 +4582,6 @@ C:/msys64/mingw64/include/rpcasync.h:
 C:/msys64/mingw64/include/rpc.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/hashtable.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/MathFunctions.h:
 
 C:/msys64/mingw64/include/realtimeapiset.h:
 
@@ -4613,6 +4609,8 @@ C:/msys64/mingw64/include/processtopologyapi.h:
 
 C:/msys64/mingw64/include/processenv.h:
 
+C:/msys64/mingw64/include/assimp/metadata.h:
+
 C:/msys64/mingw64/include/oleidl.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx10_2-512minmaxintrin.h:
@@ -4626,8 +4624,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/amxtileintrin.h:
 C:/msys64/mingw64/include/bemapiset.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/amxint8intrin.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/camera.h:
 
 C:/msys64/mingw64/include/sdks/_mingw_ddk.h:
 
@@ -4703,8 +4699,6 @@ C:/msys64/mingw64/include/SDL3/SDL_atomic.h:
 
 C:/msys64/mingw64/include/SDL3/SDL_loadso.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/light.h:
-
 C:/msys64/mingw64/include/c++/15.1.0/tr1/modified_bessel_func.tcc:
 
 C:/msys64/mingw64/include/apiset.h:
@@ -4712,8 +4706,6 @@ C:/msys64/mingw64/include/apiset.h:
 C:/msys64/mingw64/include/math.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/type_vec2.inl:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/color4.inl:
 
 C:/msys64/mingw64/include/c++/15.1.0/sstream:
 
@@ -4743,8 +4735,6 @@ C:/msys64/mingw64/include/c++/15.1.0/bits/predefined_ops.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/simd/integer.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/poppack1.h:
-
 C:/msys64/mingw64/include/c++/15.1.0/concepts:
 
 C:/msys64/mingw64/include/c++/15.1.0/streambuf:
@@ -4756,6 +4746,8 @@ C:/msys64/mingw64/include/c++/15.1.0/bits/cpp_type_traits.h:
 C:/msys64/mingw64/include/c++/15.1.0/x86_64-w64-mingw32/bits/error_constants.h:
 
 C:/msys64/mingw64/include/_mingw_off_t.h:
+
+C:/msys64/mingw64/include/assimp/postprocess.h:
 
 C:/msys64/mingw64/include/SDL3/SDL_events.h:
 
@@ -4805,6 +4797,8 @@ C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_integer.hpp:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/amxavx512intrin.h:
 
+C:/msys64/mingw64/include/assimp/quaternion.inl:
+
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_vector_relational.inl:
 
 C:/msys64/mingw64/include/SDL3/SDL_surface.h:
@@ -4840,8 +4834,6 @@ C:/msys64/mingw64/include/SDL3/SDL_pen.h:
 C:/msys64/mingw64/include/systemtopologyapi.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/move.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/quaternion.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/tr1/exp_integral.tcc:
 
@@ -4897,6 +4889,8 @@ C:/msys64/mingw64/include/string.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/vec4.hpp:
 
+C:/msys64/mingw64/include/assimp/aabb.h:
+
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_common.inl:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx512vpopcntdqvlintrin.h:
@@ -4913,8 +4907,6 @@ C:/msys64/mingw64/include/c++/15.1.0/clocale:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_matrix.hpp:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Compiler/pushpack1.h:
-
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/_vectorize.hpp:
 
 C:/msys64/mingw64/include/SDL3/SDL_version.h:
@@ -4924,6 +4916,8 @@ C:/msys64/mingw64/include/SDL3/SDL_time.h:
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_geometric_simd.inl:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/type_mat2x4.hpp:
+
+C:/msys64/mingw64/include/assimp/Importer.hpp:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/_fixes.hpp:
 
@@ -5047,6 +5041,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/usermsrintrin.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/gtc/matrix_transform.inl:
 
+C:/msys64/mingw64/include/assimp/scene.h:
+
 C:/msys64/mingw64/include/SDL3/SDL_endian.h:
 
 C:/msys64/mingw64/include/psdk_inc/_ip_mreq1.h:
@@ -5080,6 +5076,8 @@ C:/msys64/mingw64/include/namedpipeapi.h:
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/type_vec1.inl:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx512bf16vlintrin.h:
+
+C:/msys64/mingw64/include/assimp/material.inl:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/gtc/constants.inl:
 
@@ -5136,6 +5134,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx10_2satcvtintrin.
 C:/msys64/mingw64/include/driverspecs.h:
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/gtc/type_ptr.inl:
+
+C:/msys64/mingw64/include/assimp/defs.h:
 
 C:/msys64/mingw64/include/corecrt_startup.h:
 
@@ -5225,6 +5225,8 @@ C:/msys64/mingw64/include/c++/15.1.0/bits/stl_construct.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/algorithm:
 
+C:/msys64/mingw64/include/assimp/material.h:
+
 C:/msys64/mingw64/include/c++/15.1.0/string_view:
 
 C:/msys64/mingw64/include/SDL3/SDL_clipboard.h:
@@ -5236,8 +5238,6 @@ C:/msys64/mingw64/include/c++/15.1.0/cstdlib:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx10_2bf16intrin.h:
 
 C:/msys64/mingw64/include/errno.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.inl:
 
 C:/msys64/mingw64/include/c++/15.1.0/tr1/bessel_function.tcc:
 
@@ -5379,8 +5379,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avxvnniint16intrin.h
 
 C:/Users/Ximena/Desktop/opengl_projects/include/model.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/types.h:
-
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avxvnniint8intrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/tmmintrin.h:
@@ -5392,6 +5390,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/bmi2intrin.h:
 C:/msys64/mingw64/include/c++/15.1.0/ostream:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/bmiintrin.h:
+
+C:/msys64/mingw64/include/assimp/matrix3x3.inl:
 
 C:/msys64/mingw64/include/winnetwk.h:
 
@@ -5438,8 +5438,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/keylockerintrin.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx512vlintrin.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/ostream.h:
-
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/Scene.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/limits.h:
 
@@ -5523,6 +5521,8 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/stdarg.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/vaesintrin.h:
 
+C:/msys64/mingw64/include/assimp/types.h:
+
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/vpclmulqdqintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/waitpkgintrin.h:
@@ -5569,8 +5569,6 @@ C:/Users/Ximena/Desktop/opengl_projects/include/glm/detail/func_trigonometric.hp
 
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/gtc/quaternion.inl:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/material.h:
-
 C:/Users/Ximena/Desktop/opengl_projects/include/glm/gtc/quaternion_simd.inl:
 
 C:/msys64/mingw64/include/SDL3/SDL_mutex.h:
@@ -5596,6 +5594,8 @@ C:/msys64/mingw64/include/c++/15.1.0/bits/codecvt.h:
 C:/msys64/mingw64/include/c++/15.1.0/bits/stl_algobase.h:
 
 C:/msys64/mingw64/include/c++/15.1.0/bits/cxxabi_forced.h:
+
+C:/msys64/mingw64/include/assimp/light.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.1.0/include/avx512vbmi2intrin.h:
 
@@ -5705,8 +5705,6 @@ C:/msys64/mingw64/include/handleapi.h:
 
 C:/msys64/mingw64/include/sys/timeb.h:
 
-C:/Users/Ximena/Desktop/opengl_projects/include/assimp/matrix3x3.h:
-
 C:/Users/Ximena/Desktop/opengl_projects/include/stb_image.h:
 
 C:/msys64/mingw64/include/rpcsal.h:
@@ -5766,6 +5764,8 @@ C:/msys64/mingw64/include/c++/15.1.0/x86_64-w64-mingw32/bits/c++locale.h:
 C:/msys64/mingw64/include/SDL3/SDL_keycode.h:
 
 C:/msys64/mingw64/include/nb30.h:
+
+C:/msys64/mingw64/include/assimp/texture.h:
 
 C:/msys64/mingw64/include/interlockedapi.h:
 
